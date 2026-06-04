@@ -1,0 +1,66 @@
+{
+  "name": "bmg-aeos-v4-core",
+  "version": "4.0.0",
+  "description": "B.M.G. AEOS v4 Core - Production distributed system platform",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "ts-node-dev --respawn src/index.ts",
+    "build": "tsc",
+    "test": "jest",
+    "test:cov": "jest --coverage",
+    "test:watch": "jest --watch",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "migrate:up": "npm run build && node dist/migrations/run.js up",
+    "migrate:down": "npm run build && node dist/migrations/run.js down",
+    "migrate:create": "node_modules/.bin/db-migrate create",
+    "docker:build": "docker build -t bmg-aeos-v4-core:latest .",
+    "docker:push": "docker tag bmg-aeos-v4-core:latest ghcr.io/caslyblack/bmg-aeos-v4-core:latest && docker push ghcr.io/caslyblack/bmg-aeos-v4-core:latest",
+    "k8s:deploy": "kubectl apply -f kubernetes/",
+    "k8s:delete": "kubectl delete -f kubernetes/",
+    "compose:up": "docker-compose up -d",
+    "compose:down": "docker-compose down",
+    "compose:logs": "docker-compose logs -f"
+  },
+  "keywords": [
+    "bmg",
+    "aeos",
+    "distributed-system",
+    "microservices",
+    "production"
+  ],
+  "author": "caslyblack",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "express": "^4.18.2",
+    "pg": "^8.11.0",
+    "redis": "^4.6.0",
+    "prom-client": "^15.0.0",
+    "winston": "^3.11.0",
+    "dotenv": "^16.3.1",
+    "axios": "^1.6.0",
+    "uuid": "^9.0.0",
+    "joi": "^17.11.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.10.0",
+    "@types/jest": "^29.5.0",
+    "typescript": "^5.3.0",
+    "ts-node-dev": "^2.0.0",
+    "eslint": "^8.54.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "prettier": "^3.1.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.0",
+    "db-migrate": "^0.11.13"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
